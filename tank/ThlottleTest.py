@@ -16,11 +16,11 @@ class TestThlottle( unittest.TestCase ):
         self.assertEqual( True, self.throttle.IsLimit( -11) )
 
     def test_StepUp(self):
-        self.throttle.level = 33
+        self.throttle.level = 3
         self.throttle.StepUp()
-        self.assertEqual( 34, self.throttle.level ) # no
+        self.assertEqual(4, self.throttle.level )
         self.throttle.StepDown()
-        self.assertEqual( 33, self.throttle.level ) # no
+        self.assertEqual( 3, self.throttle.level )
 
         self.throttle.Reset()
         self.assertEqual( 0, self.throttle.level )
