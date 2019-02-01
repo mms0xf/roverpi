@@ -1,4 +1,4 @@
-class Thlottle:
+class Throttle:
     # has level
     # level -10 ~ 10
     # return rate -1.0 ~ 1.0

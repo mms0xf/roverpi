@@ -26,7 +26,7 @@ class TestTankDriver( unittest.TestCase ):
         self.assertEqual( False, self.tank.isBack )
         self.assertEqual( False, self.tank.isLeft )
         self.assertEqual( False, self.tank.isRight )
-        self.assertEqual( 0, self.tank.thlottleAverage )
+        self.assertEqual( 0, self.tank.throttleAverage )
         self.assertEqual( 0, self.left.duty )
         self.assertEqual( 0, self.right.duty )
 
@@ -36,7 +36,7 @@ class TestTankDriver( unittest.TestCase ):
         self.assertEqual( False, self.tank.isBack )
         self.assertEqual( False, self.tank.isLeft )
         self.assertEqual( False, self.tank.isRight )
-        self.assertEqual( 1, self.tank.thlottleAverage )
+        self.assertEqual( 1, self.tank.throttleAverage )
         self.assertEqual( 0.1, self.left.duty )
         self.assertEqual( 0.1, self.right.duty )
 
@@ -46,7 +46,7 @@ class TestTankDriver( unittest.TestCase ):
         self.assertEqual( True, self.tank.isBack )
         self.assertEqual( False, self.tank.isLeft )
         self.assertEqual( False, self.tank.isRight )
-        self.assertEqual( -1, self.tank.thlottleAverage )
+        self.assertEqual( -1, self.tank.throttleAverage )
         self.assertEqual( -0.1, self.left.duty )
         self.assertEqual( -0.1, self.right.duty )
 
@@ -56,7 +56,7 @@ class TestTankDriver( unittest.TestCase ):
         self.assertEqual( False, self.tank.isBack )
         self.assertEqual( True, self.tank.isLeft )
         self.assertEqual( False, self.tank.isRight )
-        self.assertEqual( 0.0, self.tank.thlottleAverage )
+        self.assertEqual( 0.0, self.tank.throttleAverage )
         self.assertEqual( -0.1, self.left.duty )
         self.assertEqual( 0.1, self.right.duty )
 
@@ -66,13 +66,13 @@ class TestTankDriver( unittest.TestCase ):
         self.assertEqual( False, self.tank.isBack )
         self.assertEqual( False, self.tank.isLeft )
         self.assertEqual( True, self.tank.isRight )
-        self.assertEqual( 0.0, self.tank.thlottleAverage )
+        self.assertEqual( 0.0, self.tank.throttleAverage )
         self.assertEqual( 0.1, self.left.duty )
         self.assertEqual( -0.1, self.right.duty )
         
 if __name__ == "__main__":
     unittest.main()
-#    throttle = TankDriver.Thlottle()
+#    throttle = TankDriver.Throttle()
 #    print throttle.level
 
             

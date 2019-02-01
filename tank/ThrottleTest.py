@@ -1,9 +1,9 @@
 import unittest
-from Thlottle import *
+from Throttle import *
 
-class TestThlottle( unittest.TestCase ):
+class TestThrottle( unittest.TestCase ):
     def setUp(self):
-        self.throttle = Thlottle()
+        self.throttle = Throttle()
 
 #    def tearDown(self):
 

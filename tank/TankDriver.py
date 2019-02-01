@@ -1,48 +1,48 @@
-#import Thlottle
-from . import Thlottle # TODO : typo
+#import Throttle
+from . import Throttle
 
 class TankDriver:
     # DualWheelPwmDriver dualWheel
-    # Thlottle leftThlottle
-    # Thlottle rightThlottle
+    # Throttle leftThrottle
+    # Throttle rightThrottle
 
     @property
     def powerText(self):
-        return "{0}:{1}".format( self.leftThlottle.level, self.rightThlottle.level)
+        return "{0}:{1}".format( self.leftThrottle.level, self.rightThrottle.level)
         
     @property
     def isFore(self):
-        return (self.leftThlottle.level + self.rightThlottle.level) > 0
+        return (self.leftThrottle.level + self.rightThrottle.level) > 0
 
     @property
     def isBack(self):
-        return (self.leftThlottle.level + self.rightThlottle.level) < 0
+        return (self.leftThrottle.level + self.rightThrottle.level) < 0
 
 
     @property
     def isLeft(self):
-        return (self.leftThlottle.level < self.rightThlottle.level);
+        return (self.leftThrottle.level < self.rightThrottle.level);
 
     @property
     def isRight(self):
-        return (self.leftThlottle.level > self.rightThlottle.level)
+        return (self.leftThrottle.level > self.rightThrottle.level)
     
     @property
-    def thlottleAverage(self):
+    def throttleAverage(self):
         # need kiriage
-        return int((self.leftThlottle.level + self.rightThlottle.level) / 2.0)
+        return int((self.leftThrottle.level + self.rightThrottle.level) / 2.0)
 
 
     def __init__( self, leftWheel, rightWheel ):
         self.leftWheel = leftWheel
         self.rightWheel = rightWheel
-        self.leftThlottle = Thlottle()
-        self.rightThlottle = Thlottle()
+        self.leftThrottle = Throttle()
+        self.rightThrottle = Throttle()
 
 
     def Brake(self):
-        self.leftThlottle.Reset ()
-        self.rightThlottle.Reset ()
+        self.leftThrottle.Reset ()
+        self.rightThrottle.Reset ()
         self.leftWheel.Free()
         self.rightWheel.Free()
 
@@ -51,47 +51,47 @@ class TankDriver:
             self.Brake ()
             return
     
-        self.leftThlottle.StepUp ()
-        self.rightThlottle.StepUp ()
-        self.leftWheel.Accel(self.leftThlottle.rate)
-        self.rightWheel.Accel(self.rightThlottle.rate)
+        self.leftThrottle.StepUp ()
+        self.rightThrottle.StepUp ()
+        self.leftWheel.Accel(self.leftThrottle.rate)
+        self.rightWheel.Accel(self.rightThrottle.rate)
 
     def Back(self):
         if (self.isFore) :
             self.Brake ()
             return
 
-        self.leftThlottle.StepDown ()
-        self.rightThlottle.StepDown ()
+        self.leftThrottle.StepDown ()
+        self.rightThrottle.StepDown ()
 
-        self.leftWheel.Accel(self.leftThlottle.rate)
-        self.rightWheel.Accel(self.rightThlottle.rate)
+        self.leftWheel.Accel(self.leftThrottle.rate)
+        self.rightWheel.Accel(self.rightThrottle.rate)
 
     def TurnLeft(self):
         if (self.isRight) :
-            self.leftThlottle.level = self.thlottleAverage
-            self.rightThlottle.level = self.thlottleAverage
+            self.leftThrottle.level = self.throttleAverage
+            self.rightThrottle.level = self.throttleAverage
         else :
-            self.leftThlottle.StepDown ();
-            self.rightThlottle.StepUp ();
+            self.leftThrottle.StepDown ();
+            self.rightThrottle.StepUp ();
 
-        self.leftWheel.Accel(self.leftThlottle.rate)
-        self.rightWheel.Accel(self.rightThlottle.rate)
+        self.leftWheel.Accel(self.leftThrottle.rate)
+        self.rightWheel.Accel(self.rightThrottle.rate)
 
     def TurnRight(self):
         if (self.isLeft):
-            self.leftThlottle.level = self.thlottleAverage
-            self.rightThlottle.level = self.thlottleAverage
+            self.leftThrottle.level = self.throttleAverage
+            self.rightThrottle.level = self.throttleAverage
         else :
-            self.leftThlottle.StepUp ()
-            self.rightThlottle.StepDown ()
+            self.leftThrottle.StepUp ()
+            self.rightThrottle.StepDown ()
 
-        self.leftWheel.Accel(self.leftThlottle.rate)
-        self.rightWheel.Accel(self.rightThlottle.rate)
+        self.leftWheel.Accel(self.leftThrottle.rate)
+        self.rightWheel.Accel(self.rightThrottle.rate)
 
     def __Log(self):
-        left = self.leftThlottle.level
-        right = self.rightThlottle.level
+        left = self.leftThrottle.level
+        right = self.rightThrottle.level
 
         print ("{0} / {1}", left.ToString (), right.ToString ());
 

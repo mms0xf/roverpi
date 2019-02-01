@@ -1,6 +1,6 @@
 print ('tank')
 from tank.ConnectedPin import ConnectedPin
-from tank.Thlottle import Thlottle # TODO : typo
+from tank.Throttle import Throttle
 from tank.GPIOSetting import GPIOSetting
 
 #from tank import GPIOSetting
