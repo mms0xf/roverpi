@@ -4,7 +4,7 @@ class ConnectedPin:
 
     def __init__(self, pwm):
         self.pwm = pwm
-        self.duty = 0.0
+        self._duty = 0.0
 
     @property
     def isEmitting(self):
@@ -12,7 +12,7 @@ class ConnectedPin:
 
     @property
     def duty(self):
-        return self.duty
+        return self._duty
 
     def Emit(self, rate):
 
@@ -21,7 +21,7 @@ class ConnectedPin:
         if rate > 1:
             rate = 1
         
-        self.duty = rate
+        self._duty = rate
         self.pwm.ChangeDutyCycle(rate * 100)
 
     def Stop(self):

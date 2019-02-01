@@ -1,5 +1,5 @@
-import unittest
-import Thlottle
+#import Thlottle
+from . import Thlottle # TODO : typo
 
 class TankDriver:
     # DualWheelPwmDriver dualWheel
@@ -36,8 +36,8 @@ class TankDriver:
     def __init__( self, leftWheel, rightWheel ):
         self.leftWheel = leftWheel
         self.rightWheel = rightWheel
-        self.leftThlottle = Thlottle.Thlottle ()
-        self.rightThlottle = Thlottle.Thlottle()
+        self.leftThlottle = Thlottle()
+        self.rightThlottle = Thlottle()
 
 
     def Brake(self):

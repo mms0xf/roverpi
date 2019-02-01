@@ -14,8 +14,8 @@ class GPIOSetting:
 
         for pwm in self.pwms:
             pwm.start(0)    # minimum On when low frequency
-            print "pwm initialized"
-            #pwm.stop()
+        print ('pwm initialized')
+        #pwm.stop()
 
     @staticmethod        
     def Initialize():
@@ -42,12 +42,12 @@ class GPIOSetting:
 
     @staticmethod
     def Finalize():
-        GPIO.cleanup()
-        print 'GPIO.cleanup()'
+        GPIO.cleanup()  # Segmentation faultl
+        print ('GPIO.cleanup()')
 
     @staticmethod
     def test():
-        print 'pwm left'
+        print ('pwm left')
         time.sleep(1)
         GPIOSetting.setting.leftPhase.ChangeDutyCycle(20)
         time.sleep(1)

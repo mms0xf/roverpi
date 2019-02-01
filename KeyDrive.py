@@ -32,13 +32,13 @@ class KeyDrive:
     def Initialize():
         KeyControl.Initialize()
 
-        GPIOSetting.GPIOSetting.Initialize()
-        setting = GPIOSetting.GPIOSetting.setting
+        GPIOSetting.Initialize()
+        setting = GPIOSetting.setting
 
-        leftPhasePin = ConnectedPin.ConnectedPin(setting.leftPhase)
-        leftEnablePin = ConnectedPin.ConnectedPin(setting.leftEnable)
-        rightPhasePin = ConnectedPin.ConnectedPin(setting.rightPhase)
-        rightEnablePin = ConnectedPin.ConnectedPin(setting.rightEnable)
+        leftPhasePin = ConnectedPin(setting.leftPhase)
+        leftEnablePin = ConnectedPin(setting.leftEnable)
+        rightPhasePin = ConnectedPin(setting.rightPhase)
+        rightEnablePin = ConnectedPin(setting.rightEnable)
 
         left = Wheel.Wheel( leftPhasePin, leftEnablePin )
         right = Wheel.Wheel( rightPhasePin, rightEnablePin )
@@ -83,7 +83,7 @@ class KeyDrive:
     @staticmethod
     def Finalize():
         KeyControl.Finalize()
-        GPIOSetting.GPIOSetting.Finalize()
+        GPIOSetting.Finalize()
     
     
 if __name__ == "__main__":    

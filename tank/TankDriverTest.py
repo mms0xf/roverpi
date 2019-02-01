@@ -1,7 +1,9 @@
 import unittest
-from TankDriver import *
-from Wheel import *
-from ConnectedPin import *
+
+
+from Wheel import Wheel
+from ConnectedPin import ConnectedPin
+from TankDriver import TankDriver
 
 #need property test !!
 

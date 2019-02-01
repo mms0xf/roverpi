@@ -1,5 +1,5 @@
 import math
-import ConnectedPin
+#from ConnectedPin import *
 
 class Wheel:
 
