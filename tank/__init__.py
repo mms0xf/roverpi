@@ -1,7 +1,7 @@
 print ('tank')
-from tank.ConnectedPin import ConnectedPin
-from tank.Throttle import Throttle
-from tank.GPIOSetting import GPIOSetting
+from tank.connected_pin import ConnectedPin
+from tank.throttle import Throttle
+from tank.gpio_setting import GPIOSetting
 
 #from tank import GPIOSetting
 #from tank import ConnectedPin

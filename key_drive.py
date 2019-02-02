@@ -1,9 +1,9 @@
 #!/usr/bin/python
 
-from tank import GPIOSetting
-from tank import ConnectedPin
-from tank import Wheel
-from tank import TankDriver
+from tank.gpio_setting import GPIOSetting
+from tank.connected_pin import ConnectedPin
+from tank.wheel import Wheel
+from tank.tank_driver import TankDriver
 
 import time
 import curses
@@ -40,9 +40,9 @@ class KeyDrive:
         rightPhasePin = ConnectedPin(setting.rightPhase)
         rightEnablePin = ConnectedPin(setting.rightEnable)
 
-        left = Wheel.Wheel( leftPhasePin, leftEnablePin )
-        right = Wheel.Wheel( rightPhasePin, rightEnablePin )
-        KeyDrive.tank = TankDriver.TankDriver( left, right )
+        left = Wheel( leftPhasePin, leftEnablePin )
+        right = Wheel( rightPhasePin, rightEnablePin )
+        KeyDrive.tank = TankDriver( left, right )
 
     @staticmethod
     def _Routine():
