@@ -1,8 +1,11 @@
-print ('tank')
+
+print ('__init__:'+__name__)
 #from tank.connected_pin import ConnectedPin
 #from tank.gpio_setting import GPIOSetting
 
-#from tank.throttle import Throttle # !! for tank_driver, but..that can not direct call
+#from throttle import *
+#from roverpi.tank import throttle
+
 #from tank.tank_driver import TankDriver
 
 #from tank import GPIOSetting

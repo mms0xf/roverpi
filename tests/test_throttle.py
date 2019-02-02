@@ -1,5 +1,5 @@
 import unittest
-from Throttle import *
+from tank.throttle import Throttle
 
 class TestThrottle( unittest.TestCase ):
     def setUp(self):

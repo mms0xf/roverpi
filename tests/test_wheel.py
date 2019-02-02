@@ -1,6 +1,7 @@
 import unittest
-from Wheel import *
-from ConnectedPin import *
+from tank.wheel import Wheel
+from tank.connected_pin import ConnectedPin
+from tank.connected_pin import DummyPwm
 
 #need property test !!
 

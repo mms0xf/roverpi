@@ -1,5 +1,6 @@
 import unittest
-from ConnectedPin import *
+from tank.connected_pin import ConnectedPin
+from tank.connected_pin import DummyPwm
 
 class TestConnectedPin( unittest.TestCase ):
     def setUp(self):
