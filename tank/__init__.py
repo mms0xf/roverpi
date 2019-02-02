@@ -1,7 +1,9 @@
 print ('tank')
-from tank.connected_pin import ConnectedPin
-from tank.throttle import Throttle
-from tank.gpio_setting import GPIOSetting
+#from tank.connected_pin import ConnectedPin
+#from tank.gpio_setting import GPIOSetting
+
+#from tank.throttle import Throttle # !! for tank_driver, but..that can not direct call
+#from tank.tank_driver import TankDriver
 
 #from tank import GPIOSetting
 #from tank import ConnectedPin

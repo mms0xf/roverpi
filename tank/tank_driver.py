@@ -1,5 +1,7 @@
 #import Throttle
-from . import Throttle
+from . import throttle # OK when key_drive
+#from throttle import Throttle # NG when key_drive
+#from .throttle import Throttle # OK when key_drive
 
 class TankDriver:
     # DualWheelPwmDriver dualWheel
@@ -36,8 +38,8 @@ class TankDriver:
     def __init__( self, leftWheel, rightWheel ):
         self.leftWheel = leftWheel
         self.rightWheel = rightWheel
-        self.leftThrottle = Throttle()
-        self.rightThrottle = Throttle()
+        self.leftThrottle = throttle.Throttle()
+        self.rightThrottle = throttle.Throttle()
 
 
     def Brake(self):
@@ -94,5 +96,8 @@ class TankDriver:
         right = self.rightThrottle.level
 
         print ("{0} / {1}", left.ToString (), right.ToString ());
+
+if __name__ == "__main__":
+    print('test')
 
 
