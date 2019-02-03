@@ -97,6 +97,7 @@ if __name__ == "__main__":
             isQuit = KeyDrive.Routine()
             if isQuit:
                 break
+            time.sleep(0.01)
             
     finally:
         KeyDrive.Finalize()
