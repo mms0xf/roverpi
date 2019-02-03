@@ -60,25 +60,27 @@ class KeyDrive:
 
         elif char == curses.KEY_LEFT:
             KeyControl.screen.clear()
-            KeyControl.screen.addstr(0,0,'left : ' + KeyDrive.tank.powerText)
             KeyDrive.tank.TurnLeft()
+            KeyControl.screen.addstr(0,0,'left : ' + KeyDrive.tank.powerText)
         elif char == curses.KEY_RIGHT:
             KeyControl.screen.clear()
-            KeyControl.screen.addstr(0,0,'right : '+ KeyDrive.tank.powerText)
             KeyDrive.tank.TurnRight()
+            KeyControl.screen.addstr(0,0,'right : '+ KeyDrive.tank.powerText)
         elif char == curses.KEY_UP:
             KeyControl.screen.clear()
-            KeyControl.screen.addstr(0,0,'up : '+ KeyDrive.tank.powerText)
             KeyDrive.tank.Fore()
+            KeyControl.screen.addstr(0,0,'up : '+ KeyDrive.tank.powerText)
         elif char == curses.KEY_DOWN:
             KeyControl.screen.clear()
-            KeyControl.screen.addstr(0,0,'down : '+ KeyDrive.tank.powerText)
             KeyDrive.tank.Back()
+            KeyControl.screen.addstr(0,0,'down : '+ KeyDrive.tank.powerText)
+
 
         elif char == ord(' '):
             KeyControl.screen.clear()
-            KeyControl.screen.addstr(0,0,'stop : '+ KeyDrive.tank.powerText)
             KeyDrive.tank.Brake()
+            KeyControl.screen.addstr(0,0,'stop : '+ KeyDrive.tank.powerText)
+
 
     @staticmethod
     def Finalize():
