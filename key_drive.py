@@ -61,27 +61,32 @@ class KeyDrive:
         elif char == curses.KEY_LEFT:
             KeyControl.screen.clear()
             KeyDrive.tank.TurnLeft()
-            KeyControl.screen.addstr(0,0,'left : ' + KeyDrive.tank.powerText)
+            KeyControl.screen.addstr(10,0,'left : ' + KeyDrive.tank.powerText)
         elif char == curses.KEY_RIGHT:
             KeyControl.screen.clear()
             KeyDrive.tank.TurnRight()
-            KeyControl.screen.addstr(0,0,'right : '+ KeyDrive.tank.powerText)
+            KeyControl.screen.addstr(10,0,'right : '+ KeyDrive.tank.powerText)
         elif char == curses.KEY_UP:
             KeyControl.screen.clear()
             KeyDrive.tank.Fore()
-            KeyControl.screen.addstr(0,0,'up : '+ KeyDrive.tank.powerText)
+            KeyControl.screen.addstr(10,0,'up : '+ KeyDrive.tank.powerText)
         elif char == curses.KEY_DOWN:
             KeyControl.screen.clear()
             KeyDrive.tank.Back()
-            KeyControl.screen.addstr(0,0,'down : '+ KeyDrive.tank.powerText)
-
-
-        elif char == ord(' '):
+            KeyControl.screen.addstr(10,0,'down : '+ KeyDrive.tank.powerText)
+        elif char == ord(' '):  # space key
             KeyControl.screen.clear()
             KeyDrive.tank.Brake()
-            KeyControl.screen.addstr(0,0,'stop : '+ KeyDrive.tank.powerText)
+            KeyControl.screen.addstr(10,0,'stop : '+ KeyDrive.tank.powerText)
 
-
+        message = '''
+==== manual ======
+Allow key : Tank will move. fore, back, turn left, turn right.
+Space key : emagency brake
+'q' key : quit the application
+'''
+        KeyControl.screen.addstr(0,0,message)
+        
     @staticmethod
     def Finalize():
         KeyControl.Finalize()
@@ -92,6 +97,8 @@ if __name__ == "__main__":
 
     try:
         KeyDrive.Initialize()
+
+
         
         while True:
             isQuit = KeyDrive.Routine()
