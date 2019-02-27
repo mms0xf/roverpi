@@ -1,0 +1,110 @@
+@startuml
+
+KeyDrive --> Tank.TankDriver : Setup
+KeyDrive -Left-> KeyControl
+
+KeyDrive --> Tank.GPIOSetting : Request pwm
+KeyDrive --> Tank.ConnectedPin : Setup
+'KeyDrive --> Tank.Wheel
+
+
+Tank.GPIOSetting o-Up- GPIO.PWM : Provide 4 Pins as pwm
+GPIO.PWM --o Tank.ConnectedPin
+
+package GPIO
+{
+    class PWM
+    {
+
+    }
+}
+
+
+class KeyDrive
+{
+    {static} Initialize()
+    {static} Routine()
+    {static} Finalize()
+}
+
+
+class KeyControl
+{
+    {static} Initialize()
+    {static} Fianlize()
+}
+
+
+
+package Tank
+{
+    class GPIOSetting
+    {
+        __init__(leftPhase,leftEnable,rightPhase,rightEnable)
+        {static} Initialize()
+        {static} Finalize()
+    }
+
+
+    class TankDriver
+    {
+        isFore
+        isBack
+        isLeft
+        isRight
+        throttleAverage
+
+        __init__(leftWheel,rightWheel)
+        Brake()
+        Fore()
+        Back()
+        TurnLeft()
+        TurnRight()
+
+    }
+    TankDriver o-- "2" Wheel : left & right
+    TankDriver o-- Throttle
+
+    class ConnectedPin
+    {
+        isEmitting
+        duty
+        __init__(pwm)
+        Emit(rate)
+        Stop()
+    }
+    ConnectedPin "2" --o Wheel
+
+    class Wheel
+    {
+        duty
+        __init__(phasePin,enablePin)
+        Free()
+        Accel(duty)
+
+    }
+
+
+
+    class Throttle
+    {
+        level
+        rate
+        __init__()
+        Reset()
+        IsLimit( amount )
+        StepUp()
+        StepDown()
+    }
+
+
+}
+
+
+
+
+
+
+
+@enduml
+
