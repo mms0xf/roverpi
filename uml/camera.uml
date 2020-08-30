@@ -1,0 +1,21 @@
+@startuml
+class CameraServer{
+}
+
+
+class ConcurrentBase{
+}
+
+class ConcurrentServer{
+}
+
+class KeyDrive{
+}
+
+
+KeyDrive-->ConcurrentServer
+ConcurrentServer-->ConcurrentBase
+ConcurrentServer-->CameraServer
+
+@enduml
+
