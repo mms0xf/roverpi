@@ -40,21 +40,22 @@ RaspberryPiでもシフト必要
 by i2sdetect-y 1の結果より
 '''
 
-rightWrite=0xca
-rightRead=0xca
+rightWrite= 0x65 # 0xca
+rightRead= 0x66 # 0xcb
 
-leftWrite = 0xC0
-leftRead = 0xC1
+leftWrite = 0x60 # 0xC0
+leftRead = 0x61 # 0xC1
 
 _command=0x00
 
 
 _accel = 0b11111101 # 5v
 
-
-#
+i2c.write_byte_data(leftWrite, _command, _accel)
 i2c.write_byte_data(rightWrite, _command, _accel)
-time.sleep(0.2)
+time.sleep(10)
+i2c.write_byte_data(leftWrite, _command, 0)
+i2c.write_byte_data(rightWrite, _command, 0)
 
 
 #define FAULT 0x01  // 00000001
@@ -70,7 +71,7 @@ limit_mask = 0b00010000
 ots_mask = 0b00001000
 uvlo_mask = 0b00000100
 ocp_mask = 0b00000010
-
+'''
 while 1:
     res = read_byte_data(rightRead, _command)
     if (res&fault_mask):
@@ -90,3 +91,4 @@ while 1:
     
     
     time.sleep(1)
+'''
