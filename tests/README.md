@@ -7,4 +7,4 @@ python3 -m unittest discover
 python3 -m unittest tests.test_XXXXX
 (should use out of tests directory)
 
-
+(can use on raspberry pi)
