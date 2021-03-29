@@ -91,9 +91,9 @@ def _merge_speed_and_direction(speed_bit, dir_bit):
 
 # get writing channel address from 1 or 2
 def _writing_channel_bit(channel_no):
-    if channel_no = 1:
+    if channel_no == 1:
         return channel1_write
-    elif channel_no = 2:
+    elif channel_no == 2:
         return channel2_write
     else:
         raise ValueError("unsupperted channel no")
@@ -103,7 +103,7 @@ def run(channel_no, speed_rate, is_fore):
     speed = _speed_bit(speed_rate)
     dir = _direction_bit(is_fore)
 
-    accel_bit = _merge_speed_and_direction(speed, dir):
+    accel_bit = _merge_speed_and_direction(speed, dir)
 
     channel_bit = _writing_channel_bit(channel_no)
     i2c.write_byte_data(channel_bit, _command, accel_bit)
@@ -132,10 +132,10 @@ def reset_error(channel_no):
 
 # enum
 class Fault(enum.Enum):
-    CURRENT_LIMITATION=auto()
-    OVER_TEMPTURE=auto()
-    PREVENT_LOW_VOLTAGE_OPERATION=auto()
-    OVER_CURRENT=auto()
+    CURRENT_LIMITATION=enum.auto()
+    OVER_TEMPTURE=enum.auto()
+    PREVENT_LOW_VOLTAGE_OPERATION=enum.auto()
+    OVER_CURRENT=enum.auto()
 
 
 # get status. use on the endless loop.
@@ -156,7 +156,11 @@ def get_status(channel_no):
 if __name__ == "__main__":
 
     i2c = smbus.SMBus(1)  #1 : bus number, fixed on raspberry pi
-    run(channel_no=1, speed_rate=1, is_fore=true)
-    run(channel_no=2, speed_rate=1, is_fore=true)
+    # left
+    run(channel_no=1, speed_rate=0.2, is_fore=True)
+    
+    # right
+    run(channel_no=2, speed_rate=0.2, is_fore=True)
+    
     time.sleep(10)
     stop()
