@@ -42,7 +42,19 @@ class KeyDrive:
 
         left = Wheel( leftPhasePin, leftEnablePin )
         right = Wheel( rightPhasePin, rightEnablePin )
-        KeyDrive.tank = TankDriver( left, right )
+        #KeyDrive.tank = TankDriver( left, right )
+        
+        
+        def on_accel(left_rate, right_rate):
+            left.Accel(left_rate)
+            right.Accel(right_rate)
+            
+            
+        def on_brake():
+            left.Free()
+            right.Free()
+        
+        KeyDrive.tank = TankDriver( on_accel, on_brake )
 
     @staticmethod
     def _Routine():

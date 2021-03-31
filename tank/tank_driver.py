@@ -34,19 +34,34 @@ class TankDriver:
         # need kiriage
         return int((self.leftThrottle.level + self.rightThrottle.level) / 2.0)
 
-
+    '''
     def __init__( self, leftWheel, rightWheel ):
         self.leftWheel = leftWheel
         self.rightWheel = rightWheel
         self.leftThrottle = throttle.Throttle()
         self.rightThrottle = throttle.Throttle()
+    '''
 
+    def __init__( self, on_accel, on_brake ):
+        #self.leftWheel = leftWheel
+        #self.rightWheel = rightWheel
+        self.leftThrottle = throttle.Throttle()
+        self.rightThrottle = throttle.Throttle()
+        self.on_accel = on_accel
+        self.on_brake = on_brake
+        
+
+    def ApplyAccel(self, left_rate, right_rate):
+        #self.leftWheel.Accel(left_rate)
+        #self.rightWheel.Accel(right_rate)
+        self.on_accel(left_rate, right_rate)
 
     def Brake(self):
         self.leftThrottle.Reset ()
         self.rightThrottle.Reset ()
-        self.leftWheel.Free()
-        self.rightWheel.Free()
+        #self.leftWheel.Free()
+        #self.rightWheel.Free()
+        self.on_brake()
 
     def Fore(self):
         if (self.isBack) :
@@ -55,8 +70,9 @@ class TankDriver:
     
         self.leftThrottle.StepUp ()
         self.rightThrottle.StepUp ()
-        self.leftWheel.Accel(self.leftThrottle.rate)
-        self.rightWheel.Accel(self.rightThrottle.rate)
+        self.ApplyAccel(self.leftThrottle.rate, self.rightThrottle.rate)
+        
+
 
     def Back(self):
         if (self.isFore) :
@@ -65,9 +81,7 @@ class TankDriver:
 
         self.leftThrottle.StepDown ()
         self.rightThrottle.StepDown ()
-
-        self.leftWheel.Accel(self.leftThrottle.rate)
-        self.rightWheel.Accel(self.rightThrottle.rate)
+        self.ApplyAccel(self.leftThrottle.rate, self.rightThrottle.rate)
 
     def TurnLeft(self):
         if (self.isRight) :
@@ -77,8 +91,7 @@ class TankDriver:
             self.leftThrottle.StepDown ();
             self.rightThrottle.StepUp ();
 
-        self.leftWheel.Accel(self.leftThrottle.rate)
-        self.rightWheel.Accel(self.rightThrottle.rate)
+        self.ApplyAccel(self.leftThrottle.rate, self.rightThrottle.rate)
 
     def TurnRight(self):
         if (self.isLeft):
@@ -88,8 +101,7 @@ class TankDriver:
             self.leftThrottle.StepUp ()
             self.rightThrottle.StepDown ()
 
-        self.leftWheel.Accel(self.leftThrottle.rate)
-        self.rightWheel.Accel(self.rightThrottle.rate)
+        self.ApplyAccel(self.leftThrottle.rate, self.rightThrottle.rate)
 
     def __Log(self):
         left = self.leftThrottle.level
@@ -99,5 +111,4 @@ class TankDriver:
 
 if __name__ == "__main__":
     print('test')
-
 
