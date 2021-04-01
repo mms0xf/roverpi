@@ -114,6 +114,7 @@ Space key : emagency brake
     @staticmethod
     def Finalize():
         KeyControl.Finalize()
+        KeyDrive.tank.Brake()
         #GPIOSetting.Finalize()
         pass
     
