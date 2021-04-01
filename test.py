@@ -3,7 +3,7 @@
 #from tank.gpio_setting import GPIOSetting
 #from tank.connected_pin import ConnectedPin
 #from tank.wheel import Wheel
-#from tank.tank_driver import TankDriver
+from tank.tank_driver import TankDriver
 
 import time
 import curses
@@ -48,10 +48,12 @@ class KeyDrive:
 
         import i2c.grove_i2c_mini_motor_driver as driver
 
+        driver.initialize()
+
         def on_accel(left_rate, right_rate):
-            #left.Accel(left_rate)
-            #right.Accel(right_rate)
-            
+            print("test")
+
+
             is_fore_left = (left_rate > 0)
             is_fore_right = (right_rate > 0)
             
@@ -82,24 +84,24 @@ class KeyDrive:
 
         elif char == curses.KEY_LEFT:
             KeyControl.screen.clear()
-            #KeyDrive.tank.TurnLeft()
-            KeyControl.screen.addstr(10,0,'left : ')
+            KeyDrive.tank.TurnLeft()
+            KeyControl.screen.addstr(10,0,'left : '+ KeyDrive.tank.powerText)
         elif char == curses.KEY_RIGHT:
             KeyControl.screen.clear()
-            #KeyDrive.tank.TurnRight()
-            KeyControl.screen.addstr(10,0,'right : ')
+            KeyDrive.tank.TurnRight()
+            KeyControl.screen.addstr(10,0,'right : '+ KeyDrive.tank.powerText)
         elif char == curses.KEY_UP:
             KeyControl.screen.clear()
-            #KeyDrive.tank.Fore()
-            KeyControl.screen.addstr(10,0,'up : ')
+            KeyDrive.tank.Fore()
+            KeyControl.screen.addstr(10,0,'up : '+ KeyDrive.tank.powerText)
         elif char == curses.KEY_DOWN:
             KeyControl.screen.clear()
-            #KeyDrive.tank.Back()
-            KeyControl.screen.addstr(10,0,'down : ')
+            KeyDrive.tank.Back()
+            KeyControl.screen.addstr(10,0,'down : '+ KeyDrive.tank.powerText)
         elif char == ord(' '):  # space key
             KeyControl.screen.clear()
-            #KeyDrive.tank.Brake()
-            KeyControl.screen.addstr(10,0,'stop : ')
+            KeyDrive.tank.Brake()
+            KeyControl.screen.addstr(10,0,'stop : '+ KeyDrive.tank.powerText)
 
         message = '''
 ==== manual ======

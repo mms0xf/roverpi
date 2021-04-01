@@ -151,11 +151,16 @@ def get_status(channel_no):
             return Fault.PREVENT_LOW_VOLTAGE_OPERATION
         if (res&ocp_mask):
             return Fault.OVER_CURRENT
+def initialize(): 
+    pass
 
+
+i2c = smbus.SMBus(1)  #1 : bus number, fixed on raspberry pi
 
 if __name__ == "__main__":
 
-    i2c = smbus.SMBus(1)  #1 : bus number, fixed on raspberry pi
+    initialize()
+
     # left
     run(channel_no=1, speed_rate=0.2, is_fore=True)
     
