@@ -118,7 +118,7 @@ def stop():
 
 
 _clear = 0b10000000
-fallt_mask = 0b00000001
+fault_mask = 0b00000001
 limit_mask = 0b00010000 # 電流制限
 ots_mask = 0b00001000 # 過熱
 uvlo_mask = 0b00000100 # 低電圧誤動作防止
@@ -132,6 +132,7 @@ def reset_error(channel_no):
 
 # enum
 class Fault(enum.Enum):
+    NONE=enum.auto()
     CURRENT_LIMITATION=enum.auto()
     OVER_TEMPTURE=enum.auto()
     PREVENT_LOW_VOLTAGE_OPERATION=enum.auto()
@@ -141,7 +142,7 @@ class Fault(enum.Enum):
 # get status. use on the endless loop.
 def get_status(channel_no):
     channel_address = _writing_channel_bit(channel_no)
-    res = read_byte_data(channel_address, _command)
+    res = i2c.read_byte_data(channel_address, _command)
     if (res&fault_mask):
         if (res&limit_mask):
             return Fault.CURRENT_LIMITATION
@@ -151,6 +152,9 @@ def get_status(channel_no):
             return Fault.PREVENT_LOW_VOLTAGE_OPERATION
         if (res&ocp_mask):
             return Fault.OVER_CURRENT
+    else:
+        return Fault.NONE
+    
 def initialize(): 
     pass
 

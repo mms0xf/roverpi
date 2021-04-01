@@ -4,6 +4,7 @@
 #from tank.connected_pin import ConnectedPin
 #from tank.wheel import Wheel
 from tank.tank_driver import TankDriver
+import i2c.grove_i2c_mini_motor_driver as driver
 
 import time
 import curses
@@ -34,7 +35,7 @@ class KeyDrive:
     def Initialize():
         KeyControl.Initialize()
 
-        import i2c.grove_i2c_mini_motor_driver as driver
+
 
         driver.initialize()
 
@@ -65,6 +66,12 @@ class KeyDrive:
         
     @staticmethod
     def Routine():
+        #KeyControl.screen.clear()
+        left_fault = driver.get_status(1)
+        right_fault = driver.get_status(2)
+        KeyControl.screen.addstr(15,0,'left_status  : ' + str(left_fault))
+        KeyControl.screen.addstr(16,0,'right_status : ' + str(right_fault))
+        
         char = KeyControl.screen.getch()
         if char == ord('q'):
             isQuit = True
@@ -103,6 +110,8 @@ async def sender_routine():
 
 
         while True:
+
+            
             isQuit = KeyDrive.Routine()
             if isQuit:
                 break
@@ -112,9 +121,12 @@ async def sender_routine():
 
 async def receiver_routine():
     pass
-    
-    #while True:
-    #    await asyncio.sleep(0.01)
+    '''
+    while True:
+        KeyControl.screen.clear()
+        KeyControl.screen.addstr(11,0,'test')
+        await asyncio.sleep(0.01)
+    '''
 
 
 async def main_routine():
