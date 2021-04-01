@@ -1,4 +1,4 @@
-name: Python application
+name: ci_ubuntu
 
 on: [push]
 
