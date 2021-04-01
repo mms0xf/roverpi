@@ -9,3 +9,6 @@
 
 #### class
 ![](uml/rover.png)
+
+#### unittest
+`$ python3 tester.py`
