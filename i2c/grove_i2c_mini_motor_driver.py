@@ -144,16 +144,18 @@ def get_status(channel_no):
     channel_address = _writing_channel_bit(channel_no)
     res = i2c.read_byte_data(channel_address, _command)
     if (res&fault_mask):
+        list = []
         if (res&limit_mask):
-            return Fault.CURRENT_LIMITATION
+            list.append(Fault.CURRENT_LIMITATION)
         if (res&ots_mask):
-            return Fault.OVER_TEMPTURE
+            list.append(Fault.OVER_TEMPTURE)
         if (res&uvlo_mask):
-            return Fault.PREVENT_LOW_VOLTAGE_OPERATION
+            list.append(Fault.PREVENT_LOW_VOLTAGE_OPERATION)
         if (res&ocp_mask):
-            return Fault.OVER_CURRENT
+            list.append(Fault.OVER_CURRENT)
+        return list
     else:
-        return Fault.NONE
+        return None
     
 def initialize(): 
     pass
