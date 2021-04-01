@@ -9,7 +9,7 @@ import time
 import curses
 
 import asyncio
-
+import math
 
 class KeyControl:
 
@@ -34,37 +34,25 @@ class KeyDrive:
     def Initialize():
         KeyControl.Initialize()
 
-        #GPIOSetting.Initialize()
-        #setting = GPIOSetting.setting
-
-        #leftPhasePin = ConnectedPin(setting.leftPhase)
-        #leftEnablePin = ConnectedPin(setting.leftEnable)
-        #rightPhasePin = ConnectedPin(setting.rightPhase)
-        #rightEnablePin = ConnectedPin(setting.rightEnable)
-
-        #left = Wheel( leftPhasePin, leftEnablePin )
-        #right = Wheel( rightPhasePin, rightEnablePin )
-        #KeyDrive.tank = TankDriver( left, right )
-
         import i2c.grove_i2c_mini_motor_driver as driver
 
         driver.initialize()
 
         def on_accel(left_rate, right_rate):
-            print("test")
-
 
             is_fore_left = (left_rate > 0)
             is_fore_right = (right_rate > 0)
             
-            driver.run(1,left_rate,is_fore_left)
-            driver.run(2,right_rate,is_fore_right)
+            driver.run(1, math.fabs(left_rate), is_fore_left)
+            driver.run(2, math.fabs(right_rate), is_fore_right)
             
+            KeyControl.screen.clear()
+            KeyControl.screen.addstr(10,0,str(left_rate) + ':'+ str(right_rate))
             
         def on_brake():
-            #left.Free()
-            #right.Free()
             driver.stop()
+            KeyControl.screen.clear()
+            KeyControl.screen.addstr(10,0,'braked')
         
         KeyDrive.tank = TankDriver( on_accel, on_brake )
 
@@ -83,25 +71,15 @@ class KeyDrive:
             return isQuit
 
         elif char == curses.KEY_LEFT:
-            KeyControl.screen.clear()
             KeyDrive.tank.TurnLeft()
-            KeyControl.screen.addstr(10,0,'left : '+ KeyDrive.tank.powerText)
         elif char == curses.KEY_RIGHT:
-            KeyControl.screen.clear()
             KeyDrive.tank.TurnRight()
-            KeyControl.screen.addstr(10,0,'right : '+ KeyDrive.tank.powerText)
         elif char == curses.KEY_UP:
-            KeyControl.screen.clear()
             KeyDrive.tank.Fore()
-            KeyControl.screen.addstr(10,0,'up : '+ KeyDrive.tank.powerText)
         elif char == curses.KEY_DOWN:
-            KeyControl.screen.clear()
             KeyDrive.tank.Back()
-            KeyControl.screen.addstr(10,0,'down : '+ KeyDrive.tank.powerText)
         elif char == ord(' '):  # space key
-            KeyControl.screen.clear()
             KeyDrive.tank.Brake()
-            KeyControl.screen.addstr(10,0,'stop : '+ KeyDrive.tank.powerText)
 
         message = '''
 ==== manual ======
@@ -115,9 +93,8 @@ Space key : emagency brake
     def Finalize():
         KeyControl.Finalize()
         KeyDrive.tank.Brake()
-        #GPIOSetting.Finalize()
-        pass
-    
+
+
 
 async def sender_routine():
     
@@ -130,7 +107,6 @@ async def sender_routine():
             if isQuit:
                 break
             await asyncio.sleep(0.01)
-            #print("Hello World!")
     finally:
         KeyDrive.Finalize()
 
@@ -151,16 +127,8 @@ if __name__ == "__main__":
 
     #loop = asyncio.get_event_loop()
     #loop.run_until_complete(hello_world())
-    print("Go!")
+
     # は非同期プログラムのメインのエントリーポイントとして使われるべきで、理想的には 1 回だけ呼び出されるべきです。
     asyncio.run(main_routine())
-    print("Go2")
 
 
-
-
-
-
-'''
-
-'''
