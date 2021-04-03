@@ -66,11 +66,7 @@ class KeyDrive:
         
     @staticmethod
     def Routine():
-        #KeyControl.screen.clear()
-        left_fault = driver.get_status(1)
-        right_fault = driver.get_status(2)
-        KeyControl.screen.addstr(15,0,'left_status  : ' + str(left_fault))
-        KeyControl.screen.addstr(16,0,'right_status : ' + str(right_fault))
+
         
         char = KeyControl.screen.getch()
         if char == ord('q'):
@@ -87,6 +83,13 @@ class KeyDrive:
             KeyDrive.tank.Back()
         elif char == ord(' '):  # space key
             KeyDrive.tank.Brake()
+            
+        #KeyControl.screen.clear()
+        left_fault = driver.get_status(1)
+        right_fault = driver.get_status(2)
+        KeyControl.screen.addstr(15,0,'left_status  : ' + str(left_fault))
+        KeyControl.screen.addstr(16,0,'right_status : ' + str(right_fault))
+            
 
         message = '''
 ==== manual ======

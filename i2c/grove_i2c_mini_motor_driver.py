@@ -49,7 +49,7 @@ channel1_read= 0x66 # 0xcb
 
 #ch2
 channel2_write = 0x60 # 0xC0
-leftRead = 0x61 # 0xC1
+channel2_read = 0x61 # 0xC1
 
 _command=0x00
 
@@ -97,7 +97,8 @@ def _writing_channel_bit(channel_no):
         return channel2_write
     else:
         raise ValueError("unsupperted channel no")
-        
+
+
 def run(channel_no, speed_rate, is_fore):
 
     speed = _speed_bit(speed_rate)
@@ -116,7 +117,7 @@ def stop():
     i2c.write_byte_data(channel1_write, _command, 0)
 
 
-
+fault_register = 0b01
 _clear = 0b10000000
 fault_mask = 0b00000001
 limit_mask = 0b00010000 # 電流制限
@@ -128,7 +129,7 @@ ocp_mask = 0b00000010 # 過電流
 # reset
 def reset_error(channel_no):
     channel_address = _writing_channel_bit(channel_no)
-    i2c.write_byte_data(channel_address, _command, _clear)
+    i2c.write_byte_data(channel_address, fault_register, _clear)
 
 # enum
 class Fault(enum.Enum):
@@ -137,25 +138,29 @@ class Fault(enum.Enum):
     OVER_TEMPTURE=enum.auto()
     PREVENT_LOW_VOLTAGE_OPERATION=enum.auto()
     OVER_CURRENT=enum.auto()
+    UNKNOWN=enum.auto()
 
 
 # get status. use on the endless loop.
 def get_status(channel_no):
+
+    #OSError: [Errno 121] Remote I/O error
     channel_address = _writing_channel_bit(channel_no)
-    res = i2c.read_byte_data(channel_address, _command)
+    res = i2c.read_byte_data(channel_address, fault_register)
+    reset_error(channel_no)
+    
+    list = []
     if (res&fault_mask):
-        list = []
-        if (res&limit_mask):
-            list.append(Fault.CURRENT_LIMITATION)
-        if (res&ots_mask):
-            list.append(Fault.OVER_TEMPTURE)
-        if (res&uvlo_mask):
-            list.append(Fault.PREVENT_LOW_VOLTAGE_OPERATION)
-        if (res&ocp_mask):
-            list.append(Fault.OVER_CURRENT)
-        return list
-    else:
-        return None
+        list.append(Fault.UNKNOWN)
+    if (res&limit_mask):
+        list.append(Fault.CURRENT_LIMITATION)
+    if (res&ots_mask):
+        list.append(Fault.OVER_TEMPTURE)
+    if (res&uvlo_mask):
+        list.append(Fault.PREVENT_LOW_VOLTAGE_OPERATION)
+    if (res&ocp_mask):
+        list.append(Fault.OVER_CURRENT)
+    return list
     
 def initialize(): 
     pass
